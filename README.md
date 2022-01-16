@@ -1,1 +1,8 @@
-# 2021-12-otus-java-professional-shatokhin
+# Java Professional Course Repo
+
+Course: Java Developer. Professional
+
+Student: Anton Shatokhin
+
+Certificate: (will be later)
+
