@@ -14,4 +14,6 @@ Certificate: *(will be later)*
 </details>
 
 # Modules/Homeworks
-- Gradle
+- [Gradle](https://github.com/TohaVoice/2021-12-otus-java-professional-shatokhin/tree/hw01-gradle)
+
+
