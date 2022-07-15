@@ -17,5 +17,5 @@ Certificate: *(will be later)*
 - [Gradle](https://github.com/TohaVoice/2021-12-otus-java-professional-shatokhin/tree/hw01-gradle)
 - [Generics](https://github.com/TohaVoice/2021-12-otus-java-professional-shatokhin/tree/hw04-generics)
 - [Annotations](https://github.com/TohaVoice/2021-12-otus-java-professional-shatokhin/tree/hw06-annotations)
-- [Garbage Collecector](https://github.com/TohaVoice/2021-12-otus-java-professional-shatokhin/tree/hw08-gc)
+- [Garbage Collector](https://github.com/TohaVoice/2021-12-otus-java-professional-shatokhin/tree/hw08-gc)
 - [AOP (proxy)](https://github.com/TohaVoice/2021-12-otus-java-professional-shatokhin/tree/hw10-aop)
