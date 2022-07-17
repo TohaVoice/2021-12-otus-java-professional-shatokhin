@@ -10,7 +10,7 @@ public class CheckCounterTest {
     private int count = 0;
 
     @Before
-    public void setting() throws Exception {
+    public void setting() {
         count = 10;
     }
 
@@ -27,7 +27,7 @@ public class CheckCounterTest {
     }
 
     @After
-    public void clean() throws Exception {
+    public void clean() {
         count = 0;
     }
 }
