@@ -10,7 +10,7 @@ public class CheckCounterTest {
     private int count = 0;
 
     @Before
-    public void setting() {
+    public void setting() throws Exception {
         count = 10;
     }
 
@@ -27,8 +27,7 @@ public class CheckCounterTest {
     }
 
     @After
-    public void clean() {
+    public void clean() throws Exception {
         count = 0;
-        System.out.println(AnsiColor.ANSI_PURPLE + "Data cleaned");
     }
 }

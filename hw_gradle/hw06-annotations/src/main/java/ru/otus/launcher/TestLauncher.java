@@ -7,7 +7,9 @@ import ru.otus.statistic.Statistic;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static ru.otus.constant.AnsiColor.*;
 
@@ -16,46 +18,46 @@ public class TestLauncher {
     public static void start(Statistic statistic, String... classNames) {
         for (String className : classNames) {
             final Class<?> clazz;
-            final Object testClass;
             try {
                 clazz = Class.forName(className);
-                testClass = clazz.getDeclaredConstructor().newInstance();
-            } catch (ReflectiveOperationException ex) {
-                System.out.println(ex.getCause().getMessage());
+            } catch (ClassNotFoundException ex) {
+                System.out.println(ANSI_RED + ex.getMessage());
                 return;
             }
             final Method[] declaredMethods = clazz.getDeclaredMethods();
+            final List<Method> testMethods = findMethodsByAnnotation(declaredMethods, Test.class);
             final Method beforeMethod = findMethodByAnnotation(declaredMethods, Before.class);
             final Method afterMethod = findMethodByAnnotation(declaredMethods, After.class);
 
             System.out.println(ANSI_BLUE + className + " - started");
-            try {
-                callMethod(testClass, beforeMethod);
-            } catch (Throwable e) {
-                System.out.println(e.getCause().getMessage());
-                return;
-            }
 
-            for (Method method : declaredMethods) {
-                if (method.isAnnotationPresent(Test.class)) {
-                    try {
-                        callMethod(testClass, method);
-                        statistic.increaseTotal();
-                        displayResult(method.getName(), false);
-                    } catch (Throwable e) {
-                        statistic.increaseFailed();
-                        displayResult(method.getName(), true);
-                    }
+            for (Method testMethod : testMethods) {
+                try {
+                    runTest(clazz, beforeMethod, testMethod, afterMethod, statistic);
+                } catch (Throwable e) {
+                    System.out.println(ANSI_RED + e.getMessage());
                 }
             }
 
-            try {
-                callMethod(testClass, afterMethod);
-            } catch (Throwable e) {
-                System.out.println(e.getCause().getMessage());
-            }
-
             System.out.print(ANSI_RESET);
+        }
+    }
+
+    private static void runTest(Class<?> clazz, Method beforeMethod, Method testMethod, Method afterMethod,
+                                Statistic statistic) throws Throwable {
+        final Object testClass = clazz.getDeclaredConstructor().newInstance();
+
+        callMethod(testClass, beforeMethod, afterMethod);
+
+        try {
+            callMethod(testClass, testMethod, afterMethod);
+            statistic.increaseTotal();
+            displayResult(testMethod.getName(), false);
+            callAfterMethod(testClass, afterMethod);
+        } catch (Throwable ex) {
+            statistic.increaseFailed();
+            displayResult(testMethod.getName(), true);
+            System.out.println(ANSI_RED + ex.getMessage());
         }
     }
 
@@ -66,10 +68,32 @@ public class TestLauncher {
         return optMethod.isPresent() ? optMethod.get() : null;
     }
 
-    private static void callMethod(Object object, Method method) throws Throwable {
-        if (method != null) {
-            method.setAccessible(true);
-            method.invoke(object);
+    private static List<Method> findMethodsByAnnotation(Method[] methods, Class annotationClass) {
+        return Arrays.stream(methods)
+                .filter(method -> method.isAnnotationPresent(annotationClass))
+                .collect(Collectors.toList());
+    }
+
+    private static void callMethod(Object object, Method method, Method afterMethod) throws Throwable {
+        try {
+            if (method != null) {
+                method.setAccessible(true);
+                method.invoke(object);
+            }
+        } catch (Throwable e) {
+            callAfterMethod(object, afterMethod);
+            throw new Throwable(String.format("Invoke method '%s' failed: %s", (object.getClass().getName() + "." + method.getName()), e.getCause()));
+        }
+    }
+
+    private static void callAfterMethod(Object testClass, Method afterMethod) {
+        if (afterMethod != null) {
+            afterMethod.setAccessible(true);
+            try {
+                afterMethod.invoke(testClass);
+            } catch (ReflectiveOperationException e) {
+                System.out.println(ANSI_RED + String.format("Invoke method '%s' failed: %s", (testClass.getClass().getName() + "." + afterMethod.getName()), e.getCause()));
+            }
         }
     }
 

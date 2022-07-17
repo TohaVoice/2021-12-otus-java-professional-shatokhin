@@ -14,14 +14,4 @@ public class TestApp {
                 WithoutBeforeAndAfterTest.class.getName());
         statistic.displayStatistics();
     }
-
 }
-
-
-
-
-
-
-
-
-
