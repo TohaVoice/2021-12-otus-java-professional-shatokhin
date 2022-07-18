@@ -10,6 +10,5 @@ public class DemoLogging {
         testLogging.calculation(6);
         testLogging.calculation(9, 10);
         testLogging.calculation(8, 7, "Hello OTUS!!!");
-
     }
 }
