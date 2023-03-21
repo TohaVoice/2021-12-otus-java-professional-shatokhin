@@ -19,4 +19,4 @@ Certificate: *(will be later)*
 - [Annotations](https://github.com/TohaVoice/2021-12-otus-java-professional-shatokhin/tree/hw06-annotations)
 - [Garbage Collector](https://github.com/TohaVoice/2021-12-otus-java-professional-shatokhin/tree/hw08-gc)
 - [AOP (proxy)](https://github.com/TohaVoice/2021-12-otus-java-professional-shatokhin/tree/hw10-aop)
-- 
+- [Serialization / IO (proxy)](https://github.com/TohaVoice/2021-12-otus-java-professional-shatokhin/tree/hw16-io_serialization)
