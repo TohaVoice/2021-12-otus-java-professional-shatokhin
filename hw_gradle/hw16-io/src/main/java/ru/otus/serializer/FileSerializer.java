@@ -1,3 +1,5 @@
+package ru.otus.serializer;
+
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import java.io.BufferedOutputStream;
@@ -14,7 +16,6 @@ public class FileSerializer implements Serializer {
     }
 
     @Override
-    //формирует результирующий json и сохраняет его в файл
     public void serialize(Map<String, Double> data) throws IOException {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         for (String key : data.keySet()) {

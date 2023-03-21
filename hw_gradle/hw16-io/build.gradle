@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -9,12 +8,11 @@ targetCompatibility = JavaVersion.VERSION_17
 dependencies {
     implementation 'javax.json:javax.json-api'
     implementation 'org.glassfish:javax.json'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
 
     testImplementation ('org.junit.jupiter:junit-jupiter-api')
     testImplementation ('org.junit.jupiter:junit-jupiter-engine')
     testImplementation ('org.assertj:assertj-core')
-    testImplementation ('org.mockito:mockito-core')
-    testImplementation ('org.mockito:mockito-junit-jupiter')
 }
 
 test {
