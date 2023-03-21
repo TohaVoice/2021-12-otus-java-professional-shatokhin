@@ -10,12 +10,7 @@ Certificate: *(will be later)*
 <summary>
 <i>Keywords: </i>
 </summary>
-<p>Gradle </p>
-<p>Generics </p>
-<p>Annotations </p>
-<p>Garbage Collector </p>
-<p>AOP (proxy) </p>
-<p>Serialization / IO </p>
+<p>Gradle, Generics, Annotations, Garbage Collector, AOP (proxy), Serialization / IO</p>
 </details>
 
 # Modules/Homeworks
